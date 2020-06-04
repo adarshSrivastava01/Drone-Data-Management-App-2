@@ -16,6 +16,10 @@ typedef struct Delivery {
 }Dlv;
 
 int readData(Dr array[], char fileName[]) {
+	/*
+	Takes two arguments as Array of Structures and the name of file where to read data
+	and fills the file data into various fields of structure
+	*/
 	FILE *ptr;
 	char name[20];
 	int number,cnt = 0,i;
@@ -44,6 +48,10 @@ int readData(Dr array[], char fileName[]) {
 }
 
 int a_in_b(Dr array[], int num, int length) {
+	/*
+	Simple Implementation of Linear Search
+	returns index of structure if number matches otherwise -1
+	*/
 	int i=0;
 	for(i=0; i<length ;i++) {
 		if(array[i].Drone_number == num) {
@@ -55,6 +63,10 @@ int a_in_b(Dr array[], int num, int length) {
 } 
 
 void setDrones(Dr array[], int index) {
+	/*
+	Takes two args as Array of Structures and index position where to update
+	Asks user to enter various details and updates the structure
+	*/
 	printf("\n-------------------------");
 	printf("\nEnter The Drone Number: ");
 	scanf("%d",&array[index].Drone_number);
@@ -74,6 +86,10 @@ void setDrones(Dr array[], int index) {
 }
 
 int add_update_drones(Dr array[], int index, int length) {
+	/*
+	takes three args as array of structs, index position and current length of array
+	and it adds or update a drone info 
+	*/
 	if(index == -1) {
 		printf("\nNo Drone exists with that Drone Number.\n");
 		printf("You are going to add A New Drone.\n");
@@ -88,6 +104,10 @@ int add_update_drones(Dr array[], int index, int length) {
 }
 
 void showDrones(Dr array[], int length) {
+	/*
+	Takes two args as array of structs and it's length
+	and display all drone's info of that array
+	*/
 	int i = 0;
 	printf("\nList of Drone Information: \n");
 	printf("\nDrone Number\tDrone Name\tMax Distance(km)\tLoad Capacity(kg)\tHighestDelDist\tHighestDelLoad\n");
@@ -97,6 +117,12 @@ void showDrones(Dr array[], int length) {
 }
 
 void searchDroneByName(Dr array[], char query[], int length) {
+	/*
+	takes three args as array of structs , name as string and array's length
+	returns info of a particular name if found
+	if "all" entered displays all drones
+	else gives error message
+	*/
 	int i;
 	int j = 0;
 	if(strcmpi(query,"all") != 0) {
@@ -114,6 +140,11 @@ void searchDroneByName(Dr array[], char query[], int length) {
 }
 
 int* searchDronesByCapability(int* arr, Dr Drone_info[], float dist, float dl_wg, int length) {
+	/*
+	takes an int array whose first elem is last index of that drone who is capable to delivery,
+	and second one is no. of drones capable to do delivery
+	array of structs, it's length, distance and del. weight
+	*/
 	int i = 0;
 	arr[0] = -1;
 	arr[1] = 0;
@@ -127,6 +158,13 @@ int* searchDronesByCapability(int* arr, Dr Drone_info[], float dist, float dl_wg
 }
 
 int setDeliveryInfo(Dlv arrayDl[], Dr array[], int secLen, float x1, float y1, float x2, float y2, float dist, float dl_wg, int array_index, int possible) {
+	/*
+	takes delivery array, drone array, co-ordinates of point
+	delivery weight, distance, length of arrays, index pos. of drone in drone array and
+	no. of possible drones
+	add that info in delivery array
+	and also prints a decorated recipt in console window
+	*/
 	char choice;
 	arrayDl[secLen].Drone_ID = array[array_index].Drone_number;
 	strcpy(arrayDl[secLen].Drone_name,array[array_index].Drone_name);
@@ -180,6 +218,10 @@ int setDeliveryInfo(Dlv arrayDl[], Dr array[], int secLen, float x1, float y1, f
 }
 
 void showDelArray(Dlv array[], int length) {
+	/*
+	takes two args as delivery array and it's length
+	and siplay all the drones in delivery array
+	*/
 	int i=0;
 	for(i=0; i<length ;i++) {
 		printf("\n%d\t%s\t%.2f\t%.2f\t%.2f\t%.2f\t%.2f\t%.2f\t%.2f\n",array[i].Drone_ID,array[i].Drone_name,array[i].Max_distance,array[i].Load_capacity,array[i].Delivery_orig_loc_x,array[i].Delivery_orig_loc_y,array[i].Delivery_desti_loc_x,array[i].Delivery_desti_loc_y,array[i].Load_delivered);
@@ -187,6 +229,10 @@ void showDelArray(Dlv array[], int length) {
 }
 
 void displaySimRes(Dlv array[], char name[], int length) {
+	/*
+	Takes two args as delivery array and drone name and array's length
+	and prints it's simulation result
+	*/
 	int cnt,i;
 	printf("\nRequired Simulation Result is:\n");
 	printf("\nDroneID\tDrone Name\tMax Distance\tLoad Capacity\tDelOrigX\tDelOrigY\tDeldestX\tDelDestY\tLoadDel.: \n");
@@ -208,6 +254,10 @@ void displaySimRes(Dlv array[], char name[], int length) {
 }
 
 void displayWinner(Dlv array[], int length) {
+	/*
+	takes two args as delivery array and it's length
+	and prints info of winner drones acc to specified condition
+	*/
 	int w1=0,w2=0,i;
 	float a1,a2;
 	if(length > 0) {
@@ -237,6 +287,10 @@ void displayWinner(Dlv array[], int length) {
 }
 
 void saveDroneData(char fileName[], Dr array[], int length) {
+	/*
+	Takes three args as filename and array of drones and it's length
+	and prints info of all drones in that file in a formatted way
+	*/
 	FILE *ptr;
 	int i = 0;
 	ptr = fopen(fileName,"w");
@@ -251,6 +305,10 @@ void saveDroneData(char fileName[], Dr array[], int length) {
 }
 
 void saveDeliveryData(char fileName[], Dlv array[], int length) {
+	/*
+	takes three args as fileName , delivery array, it's length
+	and prints it's report or simulation result in file
+	*/
 	int i = 0;
 	FILE *fp;
 	if(length == 0) {
@@ -311,7 +369,9 @@ int main() {
 		fflush(stdin);
 		
 		switch(choice) {
-			
+			/*
+			MENU Implemantion for different functionalities
+			*/
 			case 1: {
 				printf("\nEnter The Drone Number you want to Search: ");
 				scanf("%d",&update_drone_number);
