@@ -289,7 +289,7 @@ int main() {
 	printf("\n-----------------------------------");
 	printf("\nWelcome To Drone Delivery Simulation Project");
 	printf("\n-----------------------------------");
-	current_length = readData(Drone_info, "DroneInfo.txt");
+	current_length = readData(Drone_info, "Drone.txt");
 	printf("\n-----------------------------------");
 	printf("\nWelcome To Drone Delivery Simulation Project");
 	printf("\n------------------------------------");
@@ -380,13 +380,13 @@ int main() {
 			}
 			
 			case 6: {
-				saveDroneData("DroneInfo.txt", Drone_info, current_length);
+				saveDroneData("Drone.txt", Drone_info, current_length);
 				printf("\nData has been saved.");				
 				break;
 			}
 			
 			case 7: {
-				saveDeliveryData("result.txt", Delivery_info, secondary_length);
+				saveDeliveryData("Result.txt", Delivery_info, secondary_length);
 				break;
 			}
 			
